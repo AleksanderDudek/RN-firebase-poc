@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "916174775967",
+    "firebase_url": "https://cloudmsg-a4336.firebaseio.com",
+    "project_id": "cloudmsg-a4336",
+    "storage_bucket": "cloudmsg-a4336.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916174775967:android:5e92ff2735844923",
+        "android_client_info": {
+          "package_name": "com.ad.cloudmsg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916174775967-vtkt4hsnh4notulup1ctj8ophmocgil0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkoFo5fA0NTysCkekFxJztQqPR6hMD3FU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
