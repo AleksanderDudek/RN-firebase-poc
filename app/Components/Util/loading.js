@@ -1,11 +1,32 @@
-import React from 'react'
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native'
+import React from 'react';
+import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 
-import firebase from 'react-native-firebase'
+import firebase from 'react-native-firebase';
+import { Notification, NotificationOpen } from 'react-native-firebase';
+
 
 export default class Loading extends React.Component {
 
     componentDidMount() {
+
+      //because loading is entry point for application I decided to do notification
+      //check up here - it works :)
+      firebase.notifications().getInitialNotification()
+      .then((notificationOpen : NotificationOpen) => {
+        if (notificationOpen) {
+          // App was opened by a notification
+          // Get the action triggered by the notification being opened
+          const action = notificationOpen.action;
+          // Get information about the notification that was opened
+          const notification : Notification = notificationOpen.notification;  
+          const data = notificationOpen.data;
+
+          console.log("Opened with notification "+ action + " ||| " + notification.data)
+          console.log("Opened data: " + data)
+
+        }
+      });
+
         firebase.auth().onAuthStateChanged(user => {
           this.props.navigation.navigate(user ? 'Main' : 'SignUp')
         })

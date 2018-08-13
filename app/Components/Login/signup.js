@@ -9,7 +9,7 @@ export default class SignUp extends React.Component {
     state = { email: '', password: '', errorMessage: null }
 
     constructor(){
-        
+        super()
     }
 
     handleSignUp = () => {
