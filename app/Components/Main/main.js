@@ -6,7 +6,7 @@ import { StyleSheet, Platform, ScrollView, Text, View, Button,
 
 import firebase from 'react-native-firebase'
 
-import { NavigationActions } from 'react-navigation'
+import { NavigationActions } from 'react-navigation';
 
 import { Notification, NotificationOpen } from 'react-native-firebase';
 
@@ -112,6 +112,10 @@ export default class Main extends React.Component<{}> {
         });
     }
 
+    addItem = () => {
+      this.props.navigation.navigate('Create');
+    }
+
     deleteRandomPost = (key) => {
       this.ref.doc(key).delete().then(() => {
         console.log("GREAT SUCCESS")
@@ -150,6 +154,10 @@ export default class Main extends React.Component<{}> {
                <Button title="Add random" onPress={() => this.addRandomPost()} />
               </View>
 
+              <View style={styles.item}>
+               <Button title="Add item" onPress={() => this.addItem()} />
+              </View>
+
               <View style={{flex: 9, width: '100%'}}>
                       <FlatList
                         containerStyle={{width: '100%'}}
@@ -170,9 +178,10 @@ const Test = ({test, del}) => {
 
   return (
       <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-        <Text>{test.name}</Text>
-        <Text>{test.surname}</Text>
+        <Text style={styles.firstCol}>{test.name}</Text>
+        <Text style={styles.secondCol}>{test.surname}</Text>
         <Button
+            style={styles.thirdCol}
             onPress={() => del(test.key)}
             title="Delete"
             color="#841584"
@@ -182,6 +191,15 @@ const Test = ({test, del}) => {
 }
 
 const styles = StyleSheet.create({
+  firstCol: {
+    width: '30%' 
+  },
+  secondCol: {
+    width: '40%' 
+  },
+  thirdCol: {
+    width: '30%' 
+  },
   container: {
     flex: 1,
     flexDirection: 'column',

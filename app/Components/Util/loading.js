@@ -7,6 +7,11 @@ import { Notification, NotificationOpen } from 'react-native-firebase';
 
 export default class Loading extends React.Component {
 
+
+  static navigationOptions = {
+    header: null
+  }
+
     componentDidMount() {
 
       //because loading is entry point for application I decided to do notification

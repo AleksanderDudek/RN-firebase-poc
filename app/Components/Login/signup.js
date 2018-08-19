@@ -1,10 +1,15 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
 
-import firebase from 'react-native-firebase'
+import firebase from 'react-native-firebase';
 
 
 export default class SignUp extends React.Component {
+
+
+    static navigationOptions = {
+      header: null
+    }
 
     state = { email: '', password: '', errorMessage: null }
 
