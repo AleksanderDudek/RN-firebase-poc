@@ -2,7 +2,8 @@ import React from 'react'
 import { StyleSheet, Platform, ScrollView, Text, View, Button,
   ActivityIndicator,
   FlatList,
-  Dimensions } from 'react-native'
+  Dimensions,
+  Alert } from 'react-native'
 
 import firebase from 'react-native-firebase'
 
@@ -117,12 +118,40 @@ export default class Main extends React.Component<{}> {
     }
 
     deleteRandomPost = (key) => {
-      this.ref.doc(key).delete().then(() => {
-        console.log("GREAT SUCCESS")
-      }).catch(err => {
-        console.log('not so much ' + err);
-      })
+
+      Alert.alert(
+
+        // This is Alert Dialog Title
+        'Alert Dialog Title',
+    
+        // This is Alert Dialog Message. 
+        'Alert Dialog Message',
+        [
+          // First Text Button in Alert Dialog.
+          {text: 'Delete', onPress: () => 
+              this.ref.doc(key).delete().then(() => {
+                console.log("GREAT SUCCESS")
+              }).catch(err => {
+                console.log('not so much ' + err);
+              })
+          },
+    
+          // Second Cancel Button in Alert Dialog.
+          {text: 'No, cancel', onPress: () => console.log('Cancel Button Pressed'), style: 'cancel'},
+    
+          // Third OK Button in Alert Dialog          
+        ]
+
+      )
+
+      
     }   
+
+    editPost = (item) => {
+
+      //dodając item powoduje, że w navigation.state.params przyjmują one tę wartość obiektu
+      this.props.navigation.navigate('Edit', item);
+    }
 
   render(){
 
@@ -163,7 +192,7 @@ export default class Main extends React.Component<{}> {
                         containerStyle={{width: '100%'}}
                         data={this.state.tests}
                         contentContainerStyle={{marginVertical: 10, marginHorizontal: 5}}
-                        renderItem={({ item }) => <Test test={item} del={this.deleteRandomPost}/>  }
+                        renderItem={({ item }) => <Test test={item} del={this.deleteRandomPost} edit={this.editPost}/>  }
                       />
               </View>
 
@@ -174,10 +203,10 @@ export default class Main extends React.Component<{}> {
 }
 
 //wat does ({post}) mean? what kind of argument is this?
-const Test = ({test, del}) => {
+const Test = ({test, del, edit}) => {
 
   return (
-      <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+      <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10}}>
         <Text style={styles.firstCol}>{test.name}</Text>
         <Text style={styles.secondCol}>{test.surname}</Text>
         <Button
@@ -185,6 +214,12 @@ const Test = ({test, del}) => {
             onPress={() => del(test.key)}
             title="Delete"
             color="#841584"
+          />
+        <Button
+            style={styles.fourthCol}
+            onPress={() => edit(test)}
+            title="Edit"
+            color="#041584"
           />
       </View>
   ); 
@@ -195,10 +230,13 @@ const styles = StyleSheet.create({
     width: '30%' 
   },
   secondCol: {
-    width: '40%' 
+    width: '30%' 
   },
   thirdCol: {
-    width: '30%' 
+    width: '20%' 
+  },
+  fourthCol: {
+    width: '20%' 
   },
   container: {
     flex: 1,

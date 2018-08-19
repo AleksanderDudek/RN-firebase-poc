@@ -70,17 +70,22 @@ class CreateView extends Component {
 
 } 
 
+//flex tworzy layout pochlaniajacy calosc dostepnej przestrzeni (chyba ze jest dzieckiem jakeigos innego elmentu,
+// to wtedy pochlania 100% pozostalej przestrzeni; kazde dziecko oznaczone flex: y pochlania y/y+x przestrzeni 
+// czyli np. jesli suma wartosci pozstalych elemnentow flex wynosi 10, a nowy flex: 5 to wtedy 5/15 zajmuje 1/3 calego
+// dostepego miejsca w danym kontenerze )
+
 const styles = StyleSheet.create({
     container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center'
   },
   item:{
       marginBottom: 10,
       marginTop: 10,
-      flex: 1,
+    //   flex: 1,
       width: '50%',
       // backgroundColor: '#F33222'
   }

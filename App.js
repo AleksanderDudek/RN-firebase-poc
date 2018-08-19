@@ -7,6 +7,7 @@ import SignUp from './app/Components/Login/signup.js'
 import Login from './app/Components/Login/login.js'
 import Main from './app/Components/Main/main.js'
 import Create from './app/Components/Create/create.js'
+import Edit from './app/Components/Edit/edit.js'
 
 // create our app's navigation stack
 const App = StackNavigator(
@@ -15,7 +16,8 @@ const App = StackNavigator(
     SignUp: SignUp,
     Login:Login,
     Main: Main,
-    Create: Create
+    Create: Create,
+    Edit: Edit
   },
   {
     initialRouteName: 'Loading'
