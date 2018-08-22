@@ -2,8 +2,7 @@ import React from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 
 import firebase from 'react-native-firebase';
-import { Notification, NotificationOpen } from 'react-native-firebase';
-
+import { Notification, NotificationOpen, RemoteMessage } from 'react-native-firebase';
 
 export default class Loading extends React.Component {
 
@@ -12,6 +11,7 @@ export default class Loading extends React.Component {
     header: null
   }
 
+  
     componentDidMount() {
 
       //because loading is entry point for application I decided to do notification
@@ -26,16 +26,60 @@ export default class Loading extends React.Component {
           const notification : Notification = notificationOpen.notification;  
           const data = notificationOpen.data;
 
-          console.log("Opened with notification "+ action + " ||| " + notification.data)
-          console.log("Opened data: " + data)
+      if(data)
+      {console.log("Opened with notification "+ action + " ||| " + notification.data)
+      console.log("Opened data: " + data)}
 
         }
       });
+
+      //both notifications here are triggered when i send them, 
+    this.notificationDisplayedListener = firebase.notifications().onNotificationDisplayed((notification: Notification) => {
+
+      console.log("NOTIF123: " + notification.body)
+
+      this.setState({
+        someNotif: notification.body
+      })
+        // Process your notification as required
+        // ANDROID: Remote notifications do not contain the channel ID. You will have to specify this manually if you'd like to re-display the notification.
+    });
+    this.notificationListener = firebase.notifications().onNotification((notification: Notification) => {
+        // Process your notification as required
+        console.log("NOTIF1231: " + notification.body)
+
+        this.setState({
+          someNotif1: notification.body
+        })
+    });
+
+    //this does not work (perhaps the data type contains notification?)
+    this.messageListener = firebase.messaging().onMessage((message: RemoteMessage) => {
+        // Process your message as required\
+        console.log("MESSAGE: " + message.body)
+        this.setState({
+          message: message.body
+        })
+    });
+
 
         firebase.auth().onAuthStateChanged(user => {
           this.props.navigation.navigate(user ? 'Main' : 'SignUp')
         })
       }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+
+      //notification - does it close Listener? because it looks weird
+      this.notificationOpenedListener();
+      this.notificationDisplayedListener();
+      this.initNotify();
+      //unsubscribe
+    //  this.topic();
+
+      this.messageListener();
+  }
 
   render() {
     return (

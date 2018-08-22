@@ -11,10 +11,10 @@ import { NavigationActions } from 'react-navigation';
 
 import { Notification, NotificationOpen } from 'react-native-firebase';
 
+import WebView from '../Web/webview.js';
 //firestore example 
 
 const { width, height } = Dimensions.get('window');
-
 
 
 export default class Main extends React.Component<{}> {
@@ -37,7 +37,12 @@ export default class Main extends React.Component<{}> {
    
 
     //a co z this??
-    state = { currentUser: null };
+    state = { 
+      currentUser: null,
+      someNotif: '',
+      someNotif1: '',
+      registrationToken: ''
+    };
 
     //firestore
     constructor() {
@@ -61,9 +66,13 @@ export default class Main extends React.Component<{}> {
     componentDidMount(){
       const { currentUser } = firebase.auth()
       this.setState({ currentUser })
-
+      this.setState({
+          registrationToken: firebase.messaging().getToken()
+      })
       //firestore what is a snapshot ??
       this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate)
+
+      // this.topic = firebase.messaging().subscribeToTopic("'*'");
 
       //android doesn't take it when app is in FG or BG
       this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen: NotificationOpen) => {
@@ -74,7 +83,60 @@ export default class Main extends React.Component<{}> {
 
         console.log("Forground / background trigerred by " + action + " |||| " + notification)
 
+
     });
+
+    //this triggers from CLOSED/BACKGROUND
+     this.initNotify =  firebase.notifications().getInitialNotification()
+      .then((notificationOpen : NotificationOpen) => {
+        if (notificationOpen) {
+          // App was opened by a notification
+          // Get the action triggered by the notification being opened
+          const action = notificationOpen.action;
+          // Get information about the notification that was opened
+          const notification : Notification = notificationOpen.notification;  
+          const data = notificationOpen.data;
+
+      if(data)
+      {console.log("Opened with notification "+ action + " ||| " + notification.data)
+      console.log("Opened data: " + data)}
+
+        }
+      });
+
+      //both notifications here are triggered when i send them, 
+      this.notificationDisplayedListener = firebase.notifications().onNotificationDisplayed((notification: Notification) => {
+
+        console.log("NOTIF123: " + notification.body)
+  
+        this.setState({
+          someNotif: notification.body
+        })
+          // Process your notification as required
+          // ANDROID: Remote notifications do not contain the channel ID. You will have to specify this manually if you'd like to re-display the notification.
+      });
+      this.notificationListener = firebase.notifications().onNotification((notification: Notification) => {
+          // Process your notification as required
+          console.log("NOTIF1231: " + notification.body)
+  
+          this.setState({
+            someNotif1: notification.body
+          })
+      });
+  
+      //this does not work (perhaps the data type contains notification?)
+      this.messageListener = firebase.messaging().onMessage((message: RemoteMessage) => {
+          // Process your message as required\
+          console.log(message)
+          console.log("MESSAGE: " + message.body)
+          this.setState({
+            message: message.body
+          })
+      });
+  
+
+
+
     }
 
     //firestore
@@ -83,7 +145,12 @@ export default class Main extends React.Component<{}> {
 
       //notification - does it close Listener? because it looks weird
       this.notificationOpenedListener();
+      this.notificationDisplayedListener();
+      this.initNotify();
+      //unsubscribe
+    //  this.topic();
 
+      this.messageListener();
     }
 
 
@@ -106,15 +173,16 @@ export default class Main extends React.Component<{}> {
     }
 
     //firestore button to add data to snapshot
-    addRandomPost = () => {
+    addRandomPost = (state) => {
       this.ref.add({
         name: 'Added name',
         surname: 'Added surnamename',
+        registrationToken: state.registrationToken._55
         });
     }
 
     addItem = () => {
-      this.props.navigation.navigate('Create');
+      this.props.navigation.navigate('Create', {key: this.state.registrationToken._55});
     }
 
     deleteRandomPost = (key) => {
@@ -171,16 +239,16 @@ export default class Main extends React.Component<{}> {
                 </Text>
               </View>
 
-              <View style={styles.item}>
+              {/* <View style={styles.item}>
                 <Button 
                     title='Some fun'
                     onPress={this.goPlaces}
                 />
-              </View>
+              </View> */}
               
               {/* //firestore */}
               <View style={styles.item}>
-               <Button title="Add random" onPress={() => this.addRandomPost()} />
+               <Button title="Add random" onPress={() => this.addRandomPost(this.state)} />
               </View>
 
               <View style={styles.item}>
@@ -196,6 +264,9 @@ export default class Main extends React.Component<{}> {
                       />
               </View>
 
+              <View style={{flex: 3, width: '100%'}}>
+                  <WebView></WebView>
+              </View>
             </View>
               
             );

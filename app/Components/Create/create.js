@@ -11,22 +11,31 @@ class CreateView extends Component {
 
     state = {
         name: '',
-        surname: ''
+        surname: '',
+        registrationToken: ''
     }
 
     constructor() {
         super();
         this.ref = firebase.firestore().collection('test');
+        
+        
+        // this.setState({ registrationToken: this.props.registrationToken})
     }
 
-   
-
+    componentDidMount(){
+        console.log(this.props.navigation.state.params.key)
+        this.setState({
+            registrationToken: this.props.navigation.state.params.key
+        })
+    }
     saveToFB = (data) => {
-
+        console.log(this.props.navigation.state.params.key)
         console.log(data)
         this.ref.add({
             name: data.name,
-            surname: data.surname
+            surname: data.surname,
+            registrationToken: data.registrationToken
             }).then(() => {
                 console.log("GREAT SUCCESS")
                 this.props.navigation.navigate('Main');

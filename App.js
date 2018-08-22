@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Platform, Image, Text, View } from 'react-native'
-import { SwitchNavigator, StackNavigator } from 'react-navigation'
+import { SwitchNavigator, StackNavigator, DrawerNavigator } from 'react-navigation'
 // import the different screens
 import Loading from './app/Components/Util/loading.js'
 import SignUp from './app/Components/Login/signup.js'
@@ -23,4 +23,11 @@ const App = StackNavigator(
     initialRouteName: 'Loading'
   }
 )
-export default App;
+
+const Drawer = DrawerNavigator({
+  Stack: App,
+  SignUp: SignUp,
+  Main: Main
+})
+
+export default Drawer;
