@@ -24,7 +24,7 @@ class AdmobBanner extends Component {
             Ad unit here
         </Text>
         <Banner
-                    unitId={"ca-app-pub-5781827896809390~1362656511"}
+                    unitId={"ca-app-pub-5781827896809390/8199102571"}
                     size={"SMART_BANNER"}
                     onAdLoaded={() => {
                       console.log('Advert loaded');
@@ -33,7 +33,7 @@ class AdmobBanner extends Component {
                       console.log('Advert failed to load');
                       console.log(err)
                     }}
-                 />
+        />
       </View>
     );
   }

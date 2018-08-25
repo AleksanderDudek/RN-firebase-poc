@@ -254,6 +254,10 @@ export default class Main extends React.Component<{}> {
               </View>
 
               <View style={styles.item}>
+               <Button title="Storage" onPress={() => this.props.navigation.navigate('Storage')} />
+              </View>
+
+              <View style={styles.item}>
                <Button title="Add random" onPress={() => this.addRandomPost(this.state)} />
               </View>
 

@@ -9,7 +9,7 @@ import Main from './app/Components/Main/main.js'
 import Create from './app/Components/Create/create.js'
 import Edit from './app/Components/Edit/edit.js'
 import Banner from './app/Components/Admob/banner.js'
-
+import StorageV from './app/Components/Storage/storage.js'
 
 // create our app's navigation stack
 const App = StackNavigator(
@@ -20,7 +20,8 @@ const App = StackNavigator(
     Main: Main,
     Create: Create,
     Edit: Edit,
-    Banner: Banner
+    Banner: Banner,
+    Storage: StorageV
   },
   {
     initialRouteName: 'Loading'
