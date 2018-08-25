@@ -17,6 +17,8 @@ import WebView from '../Web/webview.js';
 const { width, height } = Dimensions.get('window');
 
 
+
+
 export default class Main extends React.Component<{}> {
   
     //pasek opcji
@@ -87,7 +89,7 @@ export default class Main extends React.Component<{}> {
     });
 
     //this triggers from CLOSED/BACKGROUND
-     this.initNotify =  firebase.notifications().getInitialNotification()
+     firebase.notifications().getInitialNotification()
       .then((notificationOpen : NotificationOpen) => {
         if (notificationOpen) {
           // App was opened by a notification
@@ -146,7 +148,6 @@ export default class Main extends React.Component<{}> {
       //notification - does it close Listener? because it looks weird
       this.notificationOpenedListener();
       this.notificationDisplayedListener();
-      this.initNotify();
       //unsubscribe
     //  this.topic();
 
@@ -247,6 +248,11 @@ export default class Main extends React.Component<{}> {
               </View> */}
               
               {/* //firestore */}
+              
+              <View style={styles.item}>
+               <Button title="Admob" onPress={() => this.props.navigation.navigate('Banner')} />
+              </View>
+
               <View style={styles.item}>
                <Button title="Add random" onPress={() => this.addRandomPost(this.state)} />
               </View>

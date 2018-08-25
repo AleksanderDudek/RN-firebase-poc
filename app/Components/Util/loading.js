@@ -74,7 +74,6 @@ export default class Loading extends React.Component {
       //notification - does it close Listener? because it looks weird
       this.notificationOpenedListener();
       this.notificationDisplayedListener();
-      this.initNotify();
       //unsubscribe
     //  this.topic();
 

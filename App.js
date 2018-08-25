@@ -8,6 +8,8 @@ import Login from './app/Components/Login/login.js'
 import Main from './app/Components/Main/main.js'
 import Create from './app/Components/Create/create.js'
 import Edit from './app/Components/Edit/edit.js'
+import Banner from './app/Components/Admob/banner.js'
+
 
 // create our app's navigation stack
 const App = StackNavigator(
@@ -17,17 +19,23 @@ const App = StackNavigator(
     Login:Login,
     Main: Main,
     Create: Create,
-    Edit: Edit
+    Edit: Edit,
+    Banner: Banner
   },
   {
     initialRouteName: 'Loading'
   }
 )
 
+//if like this this doesn't hold state O_o
 const Drawer = DrawerNavigator({
-  Stack: App,
+  
   SignUp: SignUp,
-  Main: Main
+  Main: Main,
+  Banner: Banner,
+  Loading: Loading,
+    SignUp: SignUp,
+    Login:Login
 })
 
-export default Drawer;
+export default App;
