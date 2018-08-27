@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 
 import firebase from 'react-native-firebase'
 
+import inter from './intersitial.js';
+import reward from './rewarded.js';
+
 //admob contents
 const Banner = firebase.admob.Banner;
+
 const AdRequest = firebase.admob.AdRequest;
 const request = new AdRequest();
-request.addKeyword('');
-
+request.addKeyword('auta szczecin').addKeyword('');
 
 class AdmobBanner extends Component {
   constructor(props) {
@@ -20,7 +23,7 @@ class AdmobBanner extends Component {
   render() {
     return (
       <View>
-        <Text>
+        <Text style={{textAlign: 'center', fontSize: 20}}>
             Ad unit here
         </Text>
         <Banner
@@ -34,6 +37,29 @@ class AdmobBanner extends Component {
                       console.log(err)
                     }}
         />
+
+
+        <Text style={{textAlign: 'center', fontSize: 20}}>
+            Intersitial unit here (onPress)
+        </Text>
+        <Button 
+        title="Inter"
+        onPress={()=>{
+            inter();
+        }}
+        />
+
+        <Text style={{textAlign: 'center', fontSize: 20}}>
+            Rewarded unit here (onPress)
+        </Text>
+        <Button 
+        title="Reward"
+        onPress={()=>{
+            reward();
+        }}
+        />
+
+
       </View>
     );
   }
