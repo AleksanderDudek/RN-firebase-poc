@@ -38,6 +38,17 @@ export default class Login extends React.Component {
           value={this.state.password}
         />
         <Button title="Login" onPress={this.handleLogin} />
+        <View
+          style={{
+            borderBottomColor: 'grey',
+            borderBottomWidth: 1,
+            width: '75%',
+            alignSelf: 'center',
+            marginBottom: 10,
+            marginTop: 10
+          }}
+        />
+        
         <Button
           title="Don't have an account? Sign Up"
           onPress={() => this.props.navigation.navigate('SignUp')}

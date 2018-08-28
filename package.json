@@ -26,6 +26,7 @@
     "react-native": "0.55.3",
     "react-native-fcm": "^16.2.0",
     "react-native-firebase": "4.3.6",
+    "react-native-google-signin": "^1.0.0-rc3",
     "react-navigation": "2.7.0"
   }
 }

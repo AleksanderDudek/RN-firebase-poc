@@ -32,11 +32,8 @@ const App = StackNavigator(
 const Drawer = DrawerNavigator({
   
   SignUp: SignUp,
-  Main: Main,
-  Banner: Banner,
-  Loading: Loading,
-    SignUp: SignUp,
-    Login:Login
+  Login:Login,
+  Main: Main
 })
 
 export default App;
