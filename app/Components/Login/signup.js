@@ -17,9 +17,7 @@ export default class SignUp extends React.Component {
 
     constructor(){
         super()
-        GoogleSignin.configure({
-          iosClientId: '<FROM DEVELOPER CONSOLE>', // only for iOS
-        });
+        
     }
 
     handleSignUp = () => {
