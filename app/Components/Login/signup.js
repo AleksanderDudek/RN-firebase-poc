@@ -4,7 +4,7 @@ import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
 import firebase from 'react-native-firebase';
 
 
-// import { GoogleSignin, GoogleSigninButton, statusCodes  } from 'react-native-google-signin';
+import { GoogleSignin, GoogleSigninButton, statusCodes  } from 'react-native-google-signin';
 
 
 export default class SignUp extends React.Component {
@@ -18,9 +18,9 @@ export default class SignUp extends React.Component {
 
     constructor(){
         super()
-        // GoogleSignin.configure({
-        //   iosClientId: '<FROM DEVELOPER CONSOLE>', // only for iOS
-        // });
+        GoogleSignin.configure({
+          iosClientId: '<FROM DEVELOPER CONSOLE>', // only for iOS
+        });
     }
 
     handleSignUp = () => {
@@ -30,33 +30,32 @@ export default class SignUp extends React.Component {
         .then(() => this.props.navigation.navigate('Main'))
         .catch(error => this.setState({ errorMessage: error.message }))
 
-        firebase.auth().
     }
 
 
 
-    // handleGoogleSignUp = () => {
-    //   // Somewhere in your code
-    //     signIn = async () => {
-    //       try {
-    //         await GoogleSignin.hasPlayServices();
-    //         const userInfo = await GoogleSignin.signIn();
-    //         this.setState({ userInfo });
-    //       } catch (error) {
-    //         console.log('Some error in Google signing')
-    //         console.log(error)
-    //         if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-    //           // user cancelled the login flow
-    //         } else if (error.code === statusCodes.IN_PROGRESS) {
-    //           // operation (f.e. sign in) is in progress already
-    //         } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-    //           // play services not available or outdated
-    //         } else {
-    //           // some other error happened
-    //         }
-    //       }
-    //   };
-    // }
+    handleGoogleSignUp = () => {
+      // Somewhere in your code
+        signIn = async () => {
+          try {
+            await GoogleSignin.hasPlayServices();
+            const userInfo = await GoogleSignin.signIn();
+            this.setState({ userInfo });
+          } catch (error) {
+            console.log('Some error in Google signing')
+            console.log(error)
+            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+              // user cancelled the login flow
+            } else if (error.code === statusCodes.IN_PROGRESS) {
+              // operation (f.e. sign in) is in progress already
+            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+              // play services not available or outdated
+            } else {
+              // some other error happened
+            }
+          }
+      };
+    }
 
 render() {
     return (
@@ -98,14 +97,14 @@ render() {
 
         {/* google sign */}
 
-        {/* <View>
+        <View>
           <GoogleSigninButton
             style={{ width: 48, height: 48 }}
             size={GoogleSigninButton.Size.Icon}
             color={GoogleSigninButton.Color.Dark}
             onPress={this.handleGoogleSignUp}
           />
-        </View> */}
+        </View>
 
         {/* division line, love this simplicity :)*/}
         <View
