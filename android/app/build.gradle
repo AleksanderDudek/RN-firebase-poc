@@ -193,6 +193,11 @@ dependencies {
   implementation "com.android.support:appcompat-v7:27.1.1"
   implementation 'com.android.support:support-annotations:27.1.1'
 
+   implementation(project(":react-native-google-signin")){
+        exclude group: "com.google.android.gms" // very important
+    }
+    // implementation 'com.google.android.gms:play-services-auth:15.0.0'
+
   implementation fileTree(dir: "libs", include: ["*.jar"])
   implementation "com.facebook.react:react-native:+"  // From node_modules
 

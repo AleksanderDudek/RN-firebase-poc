@@ -3,6 +3,8 @@ import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
 
 import firebase from 'react-native-firebase'
 
+import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
+
 
 export default class Login extends React.Component {
   state = { email: '', password: '', errorMessage: null }
@@ -48,7 +50,12 @@ export default class Login extends React.Component {
             marginTop: 10
           }}
         />
-        
+        <GoogleSigninButton
+            style={{ width: 48, height: 48 }}
+            size={GoogleSigninButton.Size.Icon}
+            color={GoogleSigninButton.Color.Dark}
+            onPress={this._signIn}
+            disabled={this.state.isSigninInProgress} />
         <Button
           title="Don't have an account? Sign Up"
           onPress={() => this.props.navigation.navigate('SignUp')}
