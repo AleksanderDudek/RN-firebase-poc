@@ -1,6 +1,8 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
 
+import FacebookLogin from './facebook';
+
 import firebase from 'react-native-firebase'
 
 
@@ -48,7 +50,9 @@ export default class Login extends React.Component {
             marginTop: 10
           }}
         />
-        
+
+        <FacebookLogin />
+
         <Button
           title="Don't have an account? Sign Up"
           onPress={() => this.props.navigation.navigate('SignUp')}
