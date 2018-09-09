@@ -16,7 +16,12 @@
     "rename": "node ./bin/rename.js",
     "start": "react-native start",
     "test": "jest",
-    "gradclean": "cd android && ./gradlew clean"
+    "gradclean": "cd android && ./gradlew clean",
+    "cbuild": "rimraf android/app/build",
+    "cnodes": "rimraf node_modules",
+    "andrbld": "npm run cbuild && npm run android",
+    "chkout": "npm run cnodes && npm install",
+    "full": "npm run chkout && npm run andrbld"
   },
   "jest": {
     "preset": "react-native"
@@ -25,9 +30,8 @@
     "fbjs": "0.8.17",
     "react": "16.3.2",
     "react-native": "0.55.3",
-    "react-native-fcm": "^16.2.0",
     "react-native-firebase": "4.3.6",
-    "react-native-google-signin": "^1.0.0-rc3",
-    "react-navigation": "2.7.0"
+    "react-navigation": "2.7.0",
+    "rimraf": "^2.6.2"
   }
 }
